@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SVGKit
 
 class CountriesTableViewController: UITableViewController {
     
@@ -14,6 +15,9 @@ class CountriesTableViewController: UITableViewController {
     
     private let searchController = UISearchController(searchResultsController: nil)
     private var filteredCountries = [Country]()
+    
+    private var indicator: UIActivityIndicatorView!
+    
     private var searchBarIsEmpty: Bool {
         guard let text = searchController.searchBar.text else { return false }
         return text.isEmpty
@@ -24,7 +28,15 @@ class CountriesTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchCountriesList()
+        indicator = showIndicator(in: tableView)
+
+        NetworkManager.shared.fetchCountriesData(from: countriesURL) { countries in
+            DispatchQueue.main.async {
+                self.countries = countries
+                self.tableView.reloadData()
+                self.indicator.stopAnimating()
+            }
+        }
         setupSearchController()
     }
 
@@ -50,11 +62,23 @@ class CountriesTableViewController: UITableViewController {
         }
         
         var content = cell.defaultContentConfiguration()
+        
         content.text = country.name
         content.secondaryText = country.nativeName
         cell.contentConfiguration = content
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.alpha = 0
+        
+        UIView.animate(
+            withDuration: 0.2,
+            delay: 0.01 * Double(indexPath.row),
+            animations: { cell.alpha = 1 }
+        )
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -71,29 +95,23 @@ class CountriesTableViewController: UITableViewController {
             detailVC.country = country
         }
     }
-}
-
-extension CountriesTableViewController {
-    private func fetchCountriesList () {
-        guard let url = URL(string: countriesURL) else { return }
+    
+    private func showIndicator(in view: UIView) -> UIActivityIndicatorView {
+        let activityIndicator = UIActivityIndicatorView(style: .medium)
+        activityIndicator.startAnimating()
+        activityIndicator.color = .brown
+        activityIndicator.center = view.center
+        activityIndicator.hidesWhenStopped = true
         
-        URLSession.shared.dataTask(with: url) { [self] (data, _, _) in
-            guard let data = data else { return }
-            
-            do {
-                self.countries = try JSONDecoder().decode([Country].self, from: data)
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            } catch let error {
-                print(error.localizedDescription)
-            }
-        }.resume()
+        view.addSubview(activityIndicator)
+        
+        return activityIndicator
     }
 }
 
 //MARK: - Search
 extension CountriesTableViewController: UISearchResultsUpdating {
+    
     func updateSearchResults(for searchController: UISearchController) {
         filterContentForSearchText(searchController.searchBar.text!)
     }
@@ -114,3 +132,4 @@ extension CountriesTableViewController: UISearchResultsUpdating {
         definesPresentationContext = true
     }
 }
+

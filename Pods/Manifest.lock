@@ -1,4 +1,5 @@
 PODS:
+  - Alamofire (5.4.1)
   - CocoaLumberjack (3.7.0):
     - CocoaLumberjack/Core (= 3.7.0)
   - CocoaLumberjack/Core (3.7.0)
@@ -6,10 +7,12 @@ PODS:
     - CocoaLumberjack (~> 3.0)
 
 DEPENDENCIES:
+  - Alamofire
   - SVGKit (from `https://github.com/SVGKit/SVGKit.git`, branch `3.x`)
 
 SPEC REPOS:
   trunk:
+    - Alamofire
     - CocoaLumberjack
 
 EXTERNAL SOURCES:
@@ -23,9 +26,10 @@ CHECKOUT OPTIONS:
     :git: https://github.com/SVGKit/SVGKit.git
 
 SPEC CHECKSUMS:
+  Alamofire: 2291f7d21ca607c491dd17642e5d40fdcda0e65c
   CocoaLumberjack: e8955b9d337ac307103b0a34fd141c32f27e53c5
   SVGKit: 132b010efbf57ec345309fe4a7f627c0a40c5d63
 
-PODFILE CHECKSUM: 924603f85839fce3d19ecf7ea0c357e33e5e73d2
+PODFILE CHECKSUM: be80b01f8485b0fe3a38c53f514a04a06d79595d
 
 COCOAPODS: 1.10.1

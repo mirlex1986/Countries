@@ -14,42 +14,53 @@ class CountryDetailsViewController: UIViewController {
     @IBOutlet var coutryName: UILabel!
     @IBOutlet var countryInfoTable: UITableView!
     
-    
     var country: Country!
     var tableData: [(title: String, data: Any?)] = []
     
-    
+    private var indicator: UIActivityIndicatorView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureView()
+        indicator = showIndicator(in: countryFlag)
+ 
         countryInfoTable.delegate = self
         countryInfoTable.dataSource = self
         
         tableData = prepareData(country: country)
+        configureView()
         countryInfoTable.reloadData()
         
     }
 }
 
 extension CountryDetailsViewController {
+    
     private func configureView() {
         coutryName.text = country.nativeName
         navigationItem.title = country.name
         
-        fetchCoutryFlag()
+        NetworkManager.shared.fetchCountryFlag(from: country.flag) { (flag) in
+            DispatchQueue.main.async {
+                self.countryFlag.image = SVGKImage(data: flag).uiImage
+                self.indicator.stopAnimating()
+            }
+        }
+
     }
     
-    private func fetchCoutryFlag() {
-        guard let flag = country.flag else { return }
-        guard let imageURL = URL(string: flag) else { return }
-        guard let imageData = try? Data(contentsOf: imageURL) else { return }
-        DispatchQueue.main.async {
-            self.countryFlag.image = SVGKImage(data: imageData).uiImage
-        }
+    private func showIndicator(in view: UIView) -> UIActivityIndicatorView {
+        let activityIndicator = UIActivityIndicatorView(style: .medium)
+        activityIndicator.startAnimating()
+        activityIndicator.color = .brown
+        activityIndicator.center = view.center
+        activityIndicator.hidesWhenStopped = true
+        
+        view.addSubview(activityIndicator)
+        
+        return activityIndicator
     }
+    
 }
-
 //MARK: - TableView
 extension CountryDetailsViewController: UITableViewDataSource, UITableViewDelegate {
     
@@ -79,7 +90,7 @@ extension CountryDetailsViewController: UITableViewDataSource, UITableViewDelega
             
         } else {
             var content = cell.defaultContentConfiguration()
-            content.text = "   \(tableData[indexPath.section].data ?? "")"
+            content.text = "   \(tableData[indexPath.section].data ?? "No data")"
             cell.contentConfiguration = content
         }
         return cell
@@ -95,7 +106,7 @@ extension CountryDetailsViewController: UITableViewDataSource, UITableViewDelega
             (title: "alpha3Code", data: country.alpha3Code),
             (title: "Population", data: country.population),
             (title: "Alternative Spellings", data: country.altSpellings),
-            (title: "Timezones", data: country.timezones)
+            (title: "Timezones", data: country.timezones),
         ]
     }
 }
