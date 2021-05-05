@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="gRp-YL-NgH">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="gRp-YL-NgH">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -18,7 +18,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="countryName" textLabel="giZ-gg-gAf" detailTextLabel="NKq-qA-UwW" style="IBUITableViewCellStyleSubtitle" id="dlK-Tb-CWt">
-                                <rect key="frame" x="0.0" y="28" width="375" height="55.5"/>
+                                <rect key="frame" x="0.0" y="24.5" width="375" height="55.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dlK-Tb-CWt" id="P9r-Dq-lqT">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="55.5"/>
@@ -64,7 +64,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="a1M-c8-kgd">
+                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="a1M-c8-kgd">
                                 <rect key="frame" x="20" y="74" width="335" height="179"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="a1M-c8-kgd" secondAttribute="height" multiplier="335:179" id="uHW-5O-aOZ"/>
@@ -76,7 +76,7 @@
                                 <color key="sectionIndexBackgroundColor" red="0.37055522200000002" green="0.37056469920000001" blue="0.37055957319999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" textLabel="Xew-l2-NS6" rowHeight="40" style="IBUITableViewCellStyleDefault" id="jre-2S-HAR">
-                                        <rect key="frame" x="0.0" y="28" width="343" height="40"/>
+                                        <rect key="frame" x="0.0" y="24.5" width="343" height="40"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jre-2S-HAR" id="yi5-XS-THt">
                                             <rect key="frame" x="0.0" y="0.0" width="343" height="40"/>
@@ -100,6 +100,18 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ocl-8V-yRQ">
+                                <rect key="frame" x="20" y="74" width="335" height="179"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="ocl-8V-yRQ" secondAttribute="height" multiplier="335:179" id="inr-6g-wJR"/>
+                                </constraints>
+                                <wkWebViewConfiguration key="configuration" allowsAirPlayForMediaPlayback="NO" allowsPictureInPictureMediaPlayback="NO">
+                                    <dataDetectorTypes key="dataDetectorTypes"/>
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="24X-iM-CW2"/>
                         <color key="backgroundColor" systemColor="systemGray6Color"/>
@@ -108,18 +120,23 @@
                             <constraint firstItem="a1M-c8-kgd" firstAttribute="top" secondItem="24X-iM-CW2" secondAttribute="top" constant="30" id="9hV-HC-6go"/>
                             <constraint firstItem="EfO-r0-NuT" firstAttribute="leading" secondItem="24X-iM-CW2" secondAttribute="leading" constant="16" id="E8i-3g-seD"/>
                             <constraint firstItem="Ird-8g-zkB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="24X-iM-CW2" secondAttribute="leading" id="L9L-mh-Fbk"/>
+                            <constraint firstItem="ocl-8V-yRQ" firstAttribute="leading" secondItem="24X-iM-CW2" secondAttribute="leading" constant="20" id="UA8-0S-cm0"/>
                             <constraint firstItem="24X-iM-CW2" firstAttribute="trailing" secondItem="a1M-c8-kgd" secondAttribute="trailing" constant="20" id="Uy8-sG-Yco"/>
                             <constraint firstItem="24X-iM-CW2" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Ird-8g-zkB" secondAttribute="trailing" id="Yin-hk-sYs"/>
                             <constraint firstItem="Ird-8g-zkB" firstAttribute="centerX" secondItem="cBT-Yy-8zD" secondAttribute="centerX" id="ZOy-El-Ysa"/>
                             <constraint firstItem="EfO-r0-NuT" firstAttribute="top" secondItem="Ird-8g-zkB" secondAttribute="bottom" constant="20" id="cUd-xY-8cb"/>
                             <constraint firstItem="a1M-c8-kgd" firstAttribute="leading" secondItem="24X-iM-CW2" secondAttribute="leading" constant="20" id="d3g-Rb-O4L"/>
                             <constraint firstItem="24X-iM-CW2" firstAttribute="bottom" secondItem="EfO-r0-NuT" secondAttribute="bottom" constant="20" id="iln-w2-pcD"/>
+                            <constraint firstItem="Ird-8g-zkB" firstAttribute="top" secondItem="ocl-8V-yRQ" secondAttribute="bottom" constant="8" symbolic="YES" id="kHk-KB-lmF"/>
+                            <constraint firstItem="ocl-8V-yRQ" firstAttribute="top" secondItem="24X-iM-CW2" secondAttribute="top" constant="30" id="nfD-eh-hBv"/>
+                            <constraint firstItem="24X-iM-CW2" firstAttribute="trailing" secondItem="ocl-8V-yRQ" secondAttribute="trailing" constant="20" id="sEu-Jp-qEQ"/>
                             <constraint firstItem="24X-iM-CW2" firstAttribute="trailing" secondItem="EfO-r0-NuT" secondAttribute="trailing" constant="16" id="vtx-RY-b5N"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="0JV-Eb-pFd"/>
                     <connections>
                         <outlet property="countryFlag" destination="a1M-c8-kgd" id="CWo-Bu-4f6"/>
+                        <outlet property="countryImage" destination="ocl-8V-yRQ" id="qtX-ne-ew1"/>
                         <outlet property="countryInfoTable" destination="EfO-r0-NuT" id="tWm-iT-Twu"/>
                         <outlet property="coutryName" destination="Ird-8g-zkB" id="CkI-7L-j7c"/>
                     </connections>

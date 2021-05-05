@@ -7,12 +7,14 @@
 
 import UIKit
 import SVGKit
+import WebKit
 
 class CountryDetailsViewController: UIViewController {
     
     @IBOutlet var countryFlag: UIImageView!
     @IBOutlet var coutryName: UILabel!
     @IBOutlet var countryInfoTable: UITableView!
+    @IBOutlet weak var countryImage: WKWebView!
     
     var country: Country!
     var tableData: [(title: String, data: Any?)] = []
@@ -41,6 +43,7 @@ extension CountryDetailsViewController {
         
         NetworkManager.shared.fetchCountryFlag(from: country.flag) { (flag) in
             DispatchQueue.main.async {
+                self.countryImage.load(URLRequest(url: URL(string: self.country.flag ?? "")!))
                 self.countryFlag.image = SVGKImage(data: flag).uiImage
                 self.indicator.stopAnimating()
             }
